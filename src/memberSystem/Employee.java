@@ -1,19 +1,19 @@
 package memberSystem;
 
-public class Employee {
+public class Employee extends Person {
 
     private long employee_id;
     private String password;
     private Person person;
 
-    public Employee(Employee employee) {
-        this.employee_id = employee.employee_id;
-        this.password = employee.password;
+    public Employee(long employee_id, String password, String firstname, String lastname, int c_id, int phone) {
+        super(firstname, lastname, c_id, phone);
+        this.employee_id = employee_id;
+        this.password = password;
     }
 
-    public Employee(long employee_id, Person person) {
-        this.employee_id = employee_id;
-        this.person = person;
+    public String getPassword() {
+        return password;
     }
 
     public long getEmployee_id() {
@@ -32,6 +32,10 @@ public class Employee {
         this.password = null;
         return true;
     }
-    
-    
+
+    @Override
+    public String toString() {
+        return "Employee{" + "employee_id=" + employee_id + ", password=" + password + ", person=" + person + '}';
+    }
+
 }

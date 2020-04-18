@@ -81,4 +81,9 @@ public class Person {
         return true;
     }
 
+    @Override
+    public String toString() {
+        return "Person{" + "firstname=" + firstname + ", lastname=" + lastname + ", c_id=" + c_id + ", phone=" + phone + '}';
+    }
+
 }
