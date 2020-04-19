@@ -1,15 +1,21 @@
 package memberSystem;
 
-public class Employee extends Person {
+public class Employee extends Person implements Comparable<Employee> {
 
-    private long employee_id;
+    private int employee_id;
     private String password;
     private Person person;
 
-    public Employee(long employee_id, String password, String firstname, String lastname, int c_id, int phone) {
+    public Employee(Employee employee){
+        this.employee_id = employee.employee_id;
+        this.password = employee.password;
+        this.person = employee.person;
+    }
+    public Employee(int employee_id, String password, String firstname, String lastname, String c_id, int phone,Person person) {
         super(firstname, lastname, c_id, phone);
         this.employee_id = employee_id;
         this.password = password;
+        this.person = person;
     }
 
     public String getPassword() {
@@ -36,6 +42,11 @@ public class Employee extends Person {
     @Override
     public String toString() {
         return "Employee{" + "employee_id=" + employee_id + ", password=" + password + ", person=" + person + '}';
+    }
+
+    @Override
+    public int compareTo(Employee o) {
+        return this.person.compareTo(o.person);
     }
 
 }

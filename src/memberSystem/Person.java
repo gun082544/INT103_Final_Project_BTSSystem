@@ -6,10 +6,10 @@ public abstract class Person {
 
     private String firstname;
     private String lastname;
-    private int c_id;
+    private String c_id;
     private int phone;
 
-    public Person(String firstname, String lastname, int c_id, int phone) {
+    public Person(String firstname, String lastname, String c_id, int phone) {
         this.firstname = firstname;
         this.lastname = lastname;
         this.c_id = c_id;
@@ -24,7 +24,7 @@ public abstract class Person {
         return lastname;
     }
 
-    public int getC_id() {
+    public String getC_id() {
         return c_id;
     }
 
@@ -40,7 +40,7 @@ public abstract class Person {
         this.lastname = lastname;
     }
 
-    public void setC_id(int c_id) {
+    public void setC_id(String c_id) {
         this.c_id = c_id;
     }
 
@@ -84,6 +84,10 @@ public abstract class Person {
     @Override
     public String toString() {
         return "Person{" + "firstname=" + firstname + ", lastname=" + lastname + ", c_id=" + c_id + ", phone=" + phone + '}';
+    }
+
+    int compareTo(Person person) {
+       return this.c_id.compareTo(person.c_id);
     }
 
 }
