@@ -11,7 +11,7 @@ public class Employee extends Person implements Comparable<Employee> {
         this.password = employee.password;
         this.person = employee.person;
     }
-    public Employee(int employee_id, String password, String firstname, String lastname, int c_id, int phone,Person person) {
+    public Employee(int employee_id, String password, String firstname, String lastname, String c_id, int phone,Person person) {
         super(firstname, lastname, c_id, phone);
         this.employee_id = employee_id;
         this.password = password;
