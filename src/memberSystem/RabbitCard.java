@@ -58,14 +58,10 @@ public class RabbitCard {
         this.cardType = cardType;
     }
 
-    public RabbitCard(long idCard, Person person, int money, int point, CardStatus cardStatus, CardType cardType) {
-        this.idCard = idCard;
-        this.person = person;
-        this.money = money;
-        this.point = point;
-        this.cardStatus = cardStatus;
-        this.cardType = cardType;
+    @Override
+    public String toString() {
+        return "RabbitCard{" + "idCard=" + idCard + ", person=" + person + ", money=" + money + ", point=" + point + ", cardStatus=" + cardStatus + ", cardType=" + cardType + '}';
     }
-    
+
     
 }
