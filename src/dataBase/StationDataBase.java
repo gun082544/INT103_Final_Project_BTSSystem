@@ -9,10 +9,8 @@ public class StationDataBase {
     public static void main(String[] args) {
         StationDataBase m1 = new StationDataBase();
         String temp[] = m1.testSelectFromCustomerTable();
-        for (int i = 0; i < temp.length; i++) {
-            System.out.println(temp[i]);
+            System.out.println(temp[0]);
             
-        }
 //        testSelectFromCustomerTable();
     }
         private void insertDB(int sta_id,String Sta_name,int sta_distance) {
@@ -28,15 +26,21 @@ public class StationDataBase {
     }
         private String[] testSelectFromCustomerTable() {
          try (Connection conn = DriverManager.getConnection("jdbc:derby://localhost:1527/INT103_Project","lengleng0909", "0869788258");
-                Statement stm = conn.createStatement();) {
-             ResultSet stationName =stm.executeQuery("SELECT * FROM STATION");
-            ResultSet count = stm.executeQuery("SELECT count(sta_id) FROM STATION");
-//           String Station_name[] = new String[count];
-//           int i = 0;
-//           while(stationName.next()){
-//               Station_name[i++] = stationName.getString("sta_name");
-//           }
-//             return Station_name;
+            Statement stm = conn.createStatement();) {
+            ////////////////////////
+            ResultSet stationNameCount = stm.executeQuery("SELECT * FROM STATION");
+           int count = 0;
+            while(stationNameCount.next()){
+               count++;
+           }
+            ////////////////////////
+            String Station_name[] = new String[count];
+           int i = 0;
+           ResultSet stationName =stm.executeQuery("SELECT * FROM STATION");
+           while(stationName.next()){
+               Station_name[i++] = stationName.getString("sta_name");
+           }
+             return Station_name;
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
         }
