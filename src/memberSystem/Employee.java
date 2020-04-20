@@ -1,35 +1,32 @@
 package memberSystem;
 
-public class Employee extends Person implements Comparable<Employee> {
+import java.io.Serializable;
+import static memberSystem.InputOutputEmployee.ReadEmployee;
+import static memberSystem.InputOutputEmployee.WriteEmployee;
 
-    private int employee_id;
+public class Employee extends Person implements Comparable<Employee>, Serializable {
+
+    private String employee_id;
     private String password;
-    private Person person;
+    private Person persons[];
 
-    public Employee(Employee employee){
-        this.employee_id = employee.employee_id;
-        this.password = employee.password;
-        this.person = employee.person;
-    }
-    public Employee(int employee_id, String password, String firstname, String lastname, String c_id, int phone,Person person) {
-        super(firstname, lastname, c_id, phone);
+    public Employee(String employee_id, String password, Person[] persons) {
         this.employee_id = employee_id;
         this.password = password;
-        this.person = person;
+        this.persons = persons;
     }
 
     public String getPassword() {
         return password;
     }
 
-    public long getEmployee_id() {
+    public String getEmployee_id() {
         return employee_id;
     }
-
-    public Person getPerson() {
-        return person;
+    public Person[] getPerson(){
+        return persons;
     }
-
+    
     public void setPassword(String password) {
         this.password = password;
     }
@@ -39,14 +36,28 @@ public class Employee extends Person implements Comparable<Employee> {
         return true;
     }
 
-    @Override
-    public String toString() {
-        return "Employee{" + "employee_id=" + employee_id + ", password=" + password + ", person=" + person + '}';
+    public boolean registerEmployee(Employee e) {
+        if (compareTo(e) != 0) {
+            WriteEmployee(e);
+            return true;
+        }
+        System.out.println("Error : This employee already exist ");
+        return false;
+    }
+
+    public void listEmployee() {
+        ReadEmployee();
     }
 
     @Override
+    public String toString() {
+        return "Employee{" + "employee_id=" + employee_id + ", password=" + password + ", persons=" + persons + '}';
+    }
+    
+
+    @Override
     public int compareTo(Employee o) {
-        return this.person.compareTo(o.person);
+        return this.employee_id.compareTo(o.employee_id);
     }
 
 }
