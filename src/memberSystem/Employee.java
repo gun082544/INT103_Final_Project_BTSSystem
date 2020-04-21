@@ -4,13 +4,13 @@ import java.io.Serializable;
 import static memberSystem.InputOutputEmployee.ReadEmployee;
 import static memberSystem.InputOutputEmployee.WriteEmployee;
 
-public class Employee extends Person implements Comparable<Employee>, Serializable {
+public class Employee implements Comparable<Employee>, Serializable {
 
     private String employee_id;
     private String password;
-    private Person persons[];
+    private Person persons;
 
-    public Employee(String employee_id, String password, Person[] persons) {
+    public Employee(String employee_id, String password, Person persons) {
         this.employee_id = employee_id;
         this.password = password;
         this.persons = persons;
@@ -22,9 +22,6 @@ public class Employee extends Person implements Comparable<Employee>, Serializab
 
     public String getEmployee_id() {
         return employee_id;
-    }
-    public Person[] getPerson(){
-        return persons;
     }
     
     public void setPassword(String password) {
