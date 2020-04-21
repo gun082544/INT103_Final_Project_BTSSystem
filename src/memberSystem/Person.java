@@ -1,15 +1,16 @@
 package memberSystem;
 
+import java.io.Serializable;
 import java.util.Objects;
 
-public abstract class Person {
+public class Person implements Serializable {
 
     private String firstname;
     private String lastname;
     private String c_id;
-    private int phone;
+    private String phone;
 
-    public Person(String firstname, String lastname, String c_id, int phone) {
+    public Person(String firstname, String lastname, String c_id, String phone) {
         this.firstname = firstname;
         this.lastname = lastname;
         this.c_id = c_id;
@@ -28,7 +29,7 @@ public abstract class Person {
         return c_id;
     }
 
-    public int getPhone() {
+    public String getPhone() {
         return phone;
     }
 
@@ -44,14 +45,8 @@ public abstract class Person {
         this.c_id = c_id;
     }
 
-    public void setPhone(int phone) {
+    public void setPhone(String phone) {
         this.phone = phone;
-    }
-
-    @Override
-    public int hashCode() {
-        int hash = 3;
-        return hash;
     }
 
     @Override
@@ -85,9 +80,5 @@ public abstract class Person {
     public String toString() {
         return "Person{" + "firstname=" + firstname + ", lastname=" + lastname + ", c_id=" + c_id + ", phone=" + phone + '}';
     }
-
-    int compareTo(Person person) {
-       return this.c_id.compareTo(person.c_id);
-    }
-
+    
 }
