@@ -1,5 +1,4 @@
 package paymentSystem;
-
 public class PaymentSystem extends StationCalculateSystem{
  private final int STATION_RATE = 15;
 

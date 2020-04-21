@@ -9,7 +9,7 @@ import java.sql.Statement;
 public class StationDataBase {
 
     public void insertDB(int sta_id, String Sta_name, int sta_distance) {
-        try (Connection conn = DriverManager.getConnection("jdbc:derby://localhost:1527/INT103_Project", "lengleng0909", "0869788258");
+        try (Connection conn = DriverManager.getConnection("jdbc:mysql://103.86.49.133:3306/BTSMachineSystem", "KodlnwSoftwarehouse", "Kodlnw1234");
                 Statement stm = conn.createStatement();) {
 
             int row = stm.executeUpdate("INSERT INTO STATION VALUES(" + sta_id + ",'" + Sta_name + "'," + sta_distance + ")");
@@ -20,7 +20,7 @@ public class StationDataBase {
     }
 
     public String[] SelectNameFromSTATION() {
-        try (Connection conn = DriverManager.getConnection("jdbc:derby://localhost:1527/INT103_Project", "lengleng0909", "0869788258");
+        try (Connection conn = DriverManager.getConnection("jdbc:mysql://103.86.49.133:3306/BTSMachineSystem", "KodlnwSoftwarehouse", "Kodlnw1234");
                 Statement stm = conn.createStatement();) {
             int count = 0, i = 0;
             ////////////////////////
@@ -42,7 +42,7 @@ public class StationDataBase {
         return null;
     }
         public int[] SelectDistanceFromSTATION() {
-        try (Connection conn = DriverManager.getConnection("jdbc:derby://localhost:1527/INT103_Project", "lengleng0909", "0869788258");
+        try (Connection conn = DriverManager.getConnection("jdbc:mysql://103.86.49.133:3306/BTSMachineSystem", "KodlnwSoftwarehouse", "Kodlnw1234");
                 Statement stm = conn.createStatement();) {
             int count = 0, i = 0;
             ////////////////////////
