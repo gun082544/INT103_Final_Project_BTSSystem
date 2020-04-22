@@ -1,7 +1,6 @@
 package memberSystem;
 
 import java.io.Serializable;
-import static memberSystem.InputOutputEmployee.ReadEmployee;
 import static memberSystem.InputOutputEmployee.WriteEmployee;
 
 public class Employee implements Comparable<Employee>, Serializable {
@@ -33,17 +32,8 @@ public class Employee implements Comparable<Employee>, Serializable {
         return true;
     }
 
-    public boolean registerEmployee(Employee e) {
-        if (compareTo(e) != 0) {
-            WriteEmployee(e);
-            return true;
-        }
-        System.out.println("Error : This employee already exist ");
-        return false;
-    }
-
-    public void listEmployee() {
-        ReadEmployee();
+    public void registerEmployee(Employee e) {
+        WriteEmployee(e);
     }
 
     @Override
