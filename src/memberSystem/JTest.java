@@ -24,6 +24,7 @@ public class JTest {
 //        s1.insertDB(1, "siam", 1);
 //        s1.insertDB(2, "Chit Lom", 2);
         System.out.println(s1.getTotalPay("Siam","Chit Lom"));
+        System.out.println(s1.getTotalPay("Chit Lom","Siam"));
         System.out.println(s1.getTotalPay("Siam","Nana"));
         System.out.println(s1.getTotalPay("Siam","Phra Khanong"));
     }
