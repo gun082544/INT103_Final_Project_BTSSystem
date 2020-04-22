@@ -15,6 +15,10 @@ import memberSystem.CardType;
 import memberSystem.Person;
 import memberSystem.RabbitCard;
 import dataBase.RabbitcardDatabase;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.sql.Statement;
 
 public class test {
     public void writeRabbitCardLog(RabbitCard r1, String atIn, String atOut) throws IOException {
@@ -46,7 +50,25 @@ public class test {
         writer.close();
 
     }
+        public static void createCustomerTable() {
+
+         try (Connection conn = DriverManager.getConnection("jdbc:mysql://103.86.49.133:3306/RabbitCard", "KodlnwSoftwarehouse", "Kodlnw1234");
+                Statement stm = conn.createStatement()) {
+            try {
+                stm.executeUpdate("DROP TABLE rabbitcard");
+            } catch (SQLException ex) {
+            }
+            try {
+                stm.executeUpdate("CREATE TABLE rabbitcard (rbc_idCard INT NOT NULL,rbc_person VARCHAR(100),rbc_money INT,rbc_point INT,rbc_cardStatus VARCHAR(8),rbc_cardType VARCHAR(8)PRIMARY KEY(rbc_idCard))");
+            } catch (SQLException ex) {
+            }
+            
+        } catch (SQLException ex) {
+
+        }
+    }
     public static void main(String[] args) throws IOException {
+        createCustomerTable();
         RabbitCard r1 = new RabbitCard(1001, new Person("Somchai", "Somtam", "1102170018970", "0806849641"),100, 100, CardStatus.ACTIVE, CardType.ADULT);
         RabbitcardDatabase DBR1 = new RabbitcardDatabase();
         DBR1.insertDB(0, new Person("Somchai", "Somtam", "1102170018970", "0806849641"), 0, 0, CardStatus.ACTIVE, CardType.ADULT);

@@ -15,7 +15,7 @@ public class RabbitcardDatabase {
         try (Connection conn = DriverManager.getConnection("jdbc:mysql://103.86.49.133:3306/Rabbitcard", "KodlnwSoftwarehouse", "Kodlnw1234");
                 Statement stm = conn.createStatement();) {
 
-           int row = stm.executeUpdate("INSERT INTO STATION VALUES(" + rbc_idCard + ","+ rbc_person + ","+rbc_money+","+rbc_point+","+rbc_point+","+rbc_cardStatus+"."+rbc_cardType+")");
+           int row = stm.executeUpdate("INSERT INTO STATION VALUES(" + rbc_idCard + ","+ rbc_person + ","+rbc_money+","+rbc_point+","+rbc_cardStatus+"."+rbc_cardType+")");
             System.out.println(row);
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
