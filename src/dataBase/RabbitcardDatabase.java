@@ -8,7 +8,6 @@ import java.sql.Statement;
 import memberSystem.CardStatus;
 import memberSystem.CardType;
 import memberSystem.Person;
-import memberSystem.RabbitCard;
 
 public class RabbitcardDatabase {
 
