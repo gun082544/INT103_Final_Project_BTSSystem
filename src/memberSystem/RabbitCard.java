@@ -1,67 +1,115 @@
-
 package memberSystem;
 
+import java.util.Objects;
 
 public class RabbitCard {
-    
-    private long idCard;
-    private Person person;
-    private int money;
-    private int point;
-    private CardStatus cardStatus;
-    private CardType cardType;
 
-    public RabbitCard(long idCard, Person person) {
-        this.idCard = idCard;
-        this.person = person;
+    private long rbc_idCard;
+    private Person rbc_person;
+    private int rbc_money;
+    private int rbc_point;
+    private CardStatus rbc_cardStatus;
+    private CardType rbc_cardType;
+
+    public RabbitCard(long rbc_idCard, Person rbc_person, int rbc_money, int rbc_point, CardStatus rbc_cardStatus, CardType rbc_cardType) {
+        this.rbc_idCard = rbc_idCard;
+        this.rbc_person = rbc_person;
+        this.rbc_money = rbc_money;
+        this.rbc_point = rbc_point;
+        this.rbc_cardStatus = rbc_cardStatus;
+        this.rbc_cardType = rbc_cardType;
     }
 
-    public int getPoint() {
-        return point;
+    public long getRbc_idCard() {
+        return rbc_idCard;
     }
 
-    public void setPoint(int point) {
-        this.point = point;
+    public void setRbc_idCard(long rbc_idCard) {
+        this.rbc_idCard = rbc_idCard;
     }
 
-    public long getIdCard() {
-        return idCard;
+    public Person getRbc_person() {
+        return rbc_person;
     }
 
-
-    public int getMoney() {
-        return money;
+    public void setRbc_person(Person rbc_person) {
+        this.rbc_person = rbc_person;
     }
 
-    public void setMoney(int money) {
-        this.money = money;
+    public int getRbc_money() {
+        return rbc_money;
     }
 
-    public Person getPerson() {
-        return person;
+    public void setRbc_money(int rbc_money) {
+        this.rbc_money = rbc_money;
     }
 
-
-    public CardStatus getCardStatus() {
-        return cardStatus;
+    public int getRbc_point() {
+        return rbc_point;
     }
 
-    public void setCardStatus(CardStatus cardStatus) {
-        this.cardStatus = cardStatus;
+    public void setRbc_point(int rbc_point) {
+        this.rbc_point = rbc_point;
     }
 
-    public CardType getCardType() {
-        return cardType;
+    public CardStatus getRbc_cardStatus() {
+        return rbc_cardStatus;
     }
 
-    public void setCardType(CardType cardType) {
-        this.cardType = cardType;
+    public void setRbc_cardStatus(CardStatus rbc_cardStatus) {
+        this.rbc_cardStatus = rbc_cardStatus;
+    }
+
+    public CardType getRbc_cardType() {
+        return rbc_cardType;
+    }
+
+    public void setRbc_cardType(CardType rbc_cardType) {
+        this.rbc_cardType = rbc_cardType;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 5;
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final RabbitCard other = (RabbitCard) obj;
+        if (this.rbc_idCard != other.rbc_idCard) {
+            return false;
+        }
+        if (this.rbc_money != other.rbc_money) {
+            return false;
+        }
+        if (this.rbc_point != other.rbc_point) {
+            return false;
+        }
+        if (!Objects.equals(this.rbc_person, other.rbc_person)) {
+            return false;
+        }
+        if (this.rbc_cardStatus != other.rbc_cardStatus) {
+            return false;
+        }
+        if (this.rbc_cardType != other.rbc_cardType) {
+            return false;
+        }
+        return true;
     }
 
     @Override
     public String toString() {
-        return "RabbitCard{" + "idCard=" + idCard + ", person=" + person + ", money=" + money + ", point=" + point + ", cardStatus=" + cardStatus + ", cardType=" + cardType + '}';
+        return "RabbitCard{" + "rbc_idCard=" + rbc_idCard + ", rbc_person=" + rbc_person + ", rbc_money=" + rbc_money + ", rbc_point=" + rbc_point + ", rbc_cardStatus=" + rbc_cardStatus + ", rbc_cardType=" + rbc_cardType + '}';
     }
 
-    
 }
