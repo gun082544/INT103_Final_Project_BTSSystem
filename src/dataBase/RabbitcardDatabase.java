@@ -16,7 +16,6 @@ public class RabbitcardDatabase {
                 Statement stm = conn.createStatement();) {
 
            int row = stm.executeUpdate("INSERT INTO STATION VALUES(" + rbc_idCard + ","+ rbc_person + ","+rbc_money+","+rbc_point+","+rbc_point+","+rbc_cardStatus+"."+rbc_cardType+")");
-                   /*int row = stm.executeUpdate("INSERT INTO STATION VALUES(" + sta_id + ",'" + Sta_name + "'," + sta_distance + ")");*/
             System.out.println(row);
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
