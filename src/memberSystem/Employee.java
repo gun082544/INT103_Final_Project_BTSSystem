@@ -1,7 +1,6 @@
 package memberSystem;
 
 import java.io.Serializable;
-import static memberSystem.InputOutputEmployee.WriteEmployee;
 
 public class Employee implements Comparable<Employee>, Serializable {
 
@@ -32,10 +31,10 @@ public class Employee implements Comparable<Employee>, Serializable {
         return true;
     }
 
-    public void registerEmployee(Employee e) {
-        WriteEmployee(e);
+    public Person getPersons() {
+        return persons;
     }
-
+    
     @Override
     public String toString() {
         return "Employee{" + "employee_id=" + employee_id + ", password=" + password + ", persons=" + persons + '}';
