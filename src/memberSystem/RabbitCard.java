@@ -1,8 +1,9 @@
 package memberSystem;
 
+import java.util.Comparator;
 import java.util.Objects;
 
-public class RabbitCard {
+public class RabbitCard implements Comparator <Person> {
 
     private long rbc_idCard;
     private Person rbc_person;
@@ -112,4 +113,8 @@ public class RabbitCard {
         return "RabbitCard{" + "rbc_idCard=" + rbc_idCard + ", rbc_person=" + rbc_person + ", rbc_money=" + rbc_money + ", rbc_point=" + rbc_point + ", rbc_cardStatus=" + rbc_cardStatus + ", rbc_cardType=" + rbc_cardType + '}';
     }
 
+    @Override
+    public int compare(Person o1, Person o2) {
+       return o1.getFirstname().compareTo(o2.getFirstname());
+    }
 }

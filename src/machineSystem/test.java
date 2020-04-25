@@ -19,6 +19,8 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Collection;
+import java.util.Collections;
 
 public class test {
     public void writeRabbitCardLog(RabbitCard r1, String atIn, String atOut) throws IOException {
@@ -74,5 +76,9 @@ public class test {
         DBR1.insertDB(0, new Person("Somchai", "Somtam", "1102170018970", "0806849641"), 0, 0, CardStatus.ACTIVE, CardType.ADULT);
         test mac1 = new test();
         mac1.writeRabbitCardLog(r1, "Siam", "leng house");
-    }
+        
+
+         }
+    
+   
 }
