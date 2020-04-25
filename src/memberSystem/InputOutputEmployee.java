@@ -5,8 +5,11 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
@@ -15,44 +18,38 @@ import java.nio.file.Paths;
 
 public class InputOutputEmployee {
 
-    static File file = new File("C:\\Users\\Gigabyte\\Documents\\GitHub\\INT103_Final_Project_BTSSystem\\tmp\\Employee.txt");
+    static File file = new File("C:\\Users\\Gigabyte\\Documents\\GitHub\\INT103_Final_Project_BTSSystem\\tmp\\Employee.emp");
 
-    public static void WriteEmployee(Employee e) throws IOException {
+    public static void EmployeeWriter(Employee e) throws IOException {
         try {
-            if (!file.exists()) {
-                file.createNewFile();
-            }
-            FileWriter fw = new FileWriter(file.getAbsoluteFile());
-            Path file = Paths.get("C:\\Users\\Gigabyte\\Documents\\GitHub\\INT103_Final_Project_BTSSystem\\tmp\\Employee.txt");
-            BufferedReader bf = Files.newBufferedReader(file, Charset.defaultCharset());
-            String line = null ;
-            StringBuilder tempt = new StringBuilder();
-            while ((line = bf.readLine()) == null) {
-                    tempt.append(line +"\n");
-            }
-            BufferedWriter writer = new BufferedWriter(fw);
-            StringBuilder result = new StringBuilder();
-            result.append(e.toString() + "\n");
-            result.append("---------------------------------------------------------------\n");
-            writer.write(tempt.toString());
-            writer.write(result.toString());
-            writer.close();
-        } catch (IOException i) {
-            i.printStackTrace();
+            FileOutputStream f = new FileOutputStream(file.getAbsoluteFile());
+            ObjectOutputStream o = new ObjectOutputStream(f);
+            o.writeObject(e);
+            o.close();
+            f.close();
+        } catch (FileNotFoundException ex) {
+            System.out.println("File not found");
+        } catch (IOException e2) {
+            System.out.println("Error initializing stream");
         }
     }
 
-    public static void ReadEmployee() throws IOException {
+    public static void ReadEmployeeData() throws IOException {
+        Employee eo = null;
         try {
-            Path file = Paths.get("C:\\Users\\Gigabyte\\Documents\\GitHub\\INT103_Final_Project_BTSSystem\\tmp\\Employee.txt");
-            BufferedReader bf = Files.newBufferedReader(file, Charset.defaultCharset());
-            String line = null;
-            StringBuilder temp = new StringBuilder();
-            while ((line = bf.readLine()) != null) {
-                temp.append(line + "\n");
+            FileInputStream fi = new FileInputStream(file.getAbsoluteFile());
+            ObjectInputStream oi = new ObjectInputStream(fi);
+           while(fi.available()!=0){
+               eo = (Employee) oi.readObject();
             }
-            System.out.println(temp.toString());
-        } catch (IOException e) {
+            System.out.println(eo.toString());
+            oi.close();
+            fi.close();
+        } catch (FileNotFoundException ex) {
+            System.out.println("File not found");
+        } catch (IOException e2) {
+            System.out.println("Error initializing stream");
+        } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
     }
@@ -65,8 +62,9 @@ public class InputOutputEmployee {
         Employee e1 = new Employee("A01", "btsemp", p1);
         Employee e2 = new Employee("A02", "btsemp", p2);
         Employee e3 = new Employee("A03", "btsemp", p3);
-        
-        WriteEmployee(e1);
-
+         EmployeeWriter(e1);
+         EmployeeWriter(e2);
+         EmployeeWriter(e3);
+        ReadEmployeeData();
     }
 }
