@@ -12,7 +12,7 @@ import memberSystem.Person;
 public class RabbitcardDatabase {
 
     public void insertDB(long rbc_idCard, Person rbc_person, int rbc_money,int rbc_point,CardStatus rbc_cardStatus,CardType rbc_cardType) {
-        try (Connection conn = DriverManager.getConnection("jdbc:mysql://103.86.49.133:3306/Rabbitcard", "KodlnwSoftwarehouse", "Kodlnw1234");
+        try (Connection conn = DriverManager.getConnection("jdbc:mysql://103.86.49.133:3306/RabbitCard", "KodlnwSoftwarehouse", "Kodlnw1234");
                 Statement stm = conn.createStatement();) {
 
            int row = stm.executeUpdate("INSERT INTO STATION VALUES(" + rbc_idCard + ","+ rbc_person + ","+rbc_money+","+rbc_point+","+rbc_cardStatus+"."+rbc_cardType+")");
