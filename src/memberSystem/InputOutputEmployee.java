@@ -20,20 +20,32 @@ public class InputOutputEmployee {
 
     static File file = new File("C:\\Users\\Gigabyte\\Documents\\GitHub\\INT103_Final_Project_BTSSystem\\tmp\\Employee.emp");
 
-    public static void EmployeeWriter(Employee e) throws IOException {
+    public static void EmployeeWriter(Employee e) throws IOException, ClassNotFoundException {
+       //Employee eo = null;
         try {
+
+//            FileInputStream fi = new FileInputStream(file.getAbsoluteFile());
+//            ObjectInputStream oi = new ObjectInputStream(fi);
+//            
+//           while(fi.available()!=0){
+//               eo = (Employee) oi.readObject();
+//            }
+//          // Employee ep = null;
+//            while(eo.toString()!=0){
+//                //o.writeObject(ep);
+//                o.write('\n');
+//            }
             FileOutputStream f = new FileOutputStream(file.getAbsoluteFile());
             ObjectOutputStream o = new ObjectOutputStream(f);
             o.writeObject(e);
             o.close();
-            f.close();
+            f.close(); 
         } catch (FileNotFoundException ex) {
             System.out.println("File not found");
         } catch (IOException e2) {
             System.out.println("Error initializing stream");
         }
     }
-
     public static void ReadEmployeeData() throws IOException {
         Employee eo = null;
         try {
@@ -54,7 +66,7 @@ public class InputOutputEmployee {
         }
     }
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws IOException, ClassNotFoundException {
         Person p1 = new Person("JJ", "Montika", "62130500024", "086849641");
         Person p2 = new Person("Leng", "Loha", "62130500056", "086148152");
         Person p3 = new Person("Gun", "Chalor", "62130500072", "092151852");
@@ -63,8 +75,6 @@ public class InputOutputEmployee {
         Employee e2 = new Employee("A02", "btsemp", p2);
         Employee e3 = new Employee("A03", "btsemp", p3);
          EmployeeWriter(e1);
-         EmployeeWriter(e2);
-         EmployeeWriter(e3);
         ReadEmployeeData();
     }
 }

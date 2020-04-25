@@ -37,7 +37,7 @@ public class Employee implements Comparable<Employee>, Serializable {
     
     @Override
     public String toString() {
-        return "Employee{" + "employee_id=" + employee_id + ", password=" + password + ", persons=" + persons + '}';
+        return "Employee ID : " + employee_id + "  Password : " + password + "\n" + persons + "\n-------------------------------------------------------------------------------------";
     }
     
 

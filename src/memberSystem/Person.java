@@ -78,7 +78,7 @@ public class Person implements Serializable {
 
     @Override
     public String toString() {
-        return "Person{" + "firstname=" + firstname + ", lastname=" + lastname + ", c_id=" + c_id + ", phone=" + phone + '}';
+        return "Firstname : " + firstname + "  Lastname : " + lastname + "\nID Card : " + c_id + "\nTel. : " + phone ;
     }
     
 }
