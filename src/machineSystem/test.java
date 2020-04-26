@@ -30,11 +30,12 @@ public class test {
     private RabbitCard rabbitCards[];
     private int employeeCount;
     private int rabbitCardCount;
+
     public test() throws IOException {
+		RabbitcardDatabase b1 = new RabbitcardDatabase();
         InputOutputEmployee e1 = new InputOutputEmployee();
-        employees = e1.ReadEmployeeData();
-        rabbitCards = new RabbitCard[10]; //Change to BD Later & set rabbitCardCount
-    }
+        employees = e1.ReadEmployeeData();	//Change to IO Later & set employeeCount
+		rabbitCards = new RabbitCard[10]; //Change to BD Later & set rabbitCardCount
     
     public void addEmployee(String id,String pass,Person p1) throws IOException, ClassNotFoundException{
         if(this.isEmployeeFull() == true){
@@ -203,7 +204,5 @@ public class test {
 //        v1.Travel(1001, "Nana", "Siam");
         v1.Travel(1001, "Siam", "Nana");
         System.out.println(v1);
-        
-        
     }
 }
