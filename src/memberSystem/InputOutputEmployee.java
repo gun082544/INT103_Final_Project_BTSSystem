@@ -42,9 +42,6 @@ public class InputOutputEmployee {
             while (fi.available() != 0) {
                 eo = (Employee[]) oi.readObject();
             }
-            for (int i = 0; i < eo.length; i++) {
-                System.out.println(eo[i]);
-            }
             oi.close();
             fi.close();
         } catch (FileNotFoundException ex) {

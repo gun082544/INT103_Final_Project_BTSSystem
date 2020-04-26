@@ -68,6 +68,18 @@ public class RabbitCard implements Comparator <Person> {
     public void setRbc_cardType(CardType rbc_cardType) {
         this.rbc_cardType = rbc_cardType;
     }
+    public String getFirstname(){
+        return rbc_person.getFirstname();
+    }
+    public String getLastName(){
+        return rbc_person.getLastname();
+    }
+    public long getC_id(){
+        return rbc_person.getC_id();
+    }
+    public long getPhone(){
+        return rbc_person.getPhone();
+    }
 
     @Override
     public int hashCode() {

@@ -26,35 +26,26 @@ import memberSystem.Employee;
 import memberSystem.InputOutputEmployee;
 import paymentSystem.PaymentSystem;
 
-public class test {
+public class MachineSystem {
 
     private Employee employees[];
     private RabbitCard rabbitCards[];
     private int employeeCount;
     private int rabbitCardCount;
 
-    public test() throws IOException {
+    public MachineSystem() throws IOException {
         RabbitcardDatabase b1 = new RabbitcardDatabase();
         InputOutputEmployee e1 = new InputOutputEmployee();
-        employees = e1.ReadEmployeeData();	//Change to IO Later & set employeeCount
-        rabbitCards = new RabbitCard[10]; //Change to BD Later & set rabbitCardCount
-    }
-    public void addEmployee(String id, String pass, Person p1) throws IOException, ClassNotFoundException {
-        if (this.isEmployeeFull() == true) {
-            Employee temp[] = employees;
-            this.employees = new Employee[employeeCount + 10];
-            for (int i = 0; i < temp.length; i++) {
-                employees[i] = temp[i];
-            }
+        employees = e1.ReadEmployeeData();
+        for (int i = 0; i < employees.length; i++) {
+            employeeCount++;
         }
-        employees[employeeCount++] = new Employee(id, pass, p1);
-        InputOutputEmployee e1 = new InputOutputEmployee();
-        e1.EmployeeWriter(employees);
-
-    }
-
-    public void addRabbitCard() {
-        rabbitCards[0] = new RabbitCard(1001, new Person("Somchai", "Somtam", 1102003160431L, 894908646L), 100, 100, CardStatus.ACTIVE, CardType.ADULT);
+        //Write IO into array & set employeeCount  **COMPLETE**
+        rabbitCards = b1.selectRabbitCard();
+        for (int i = 0; i < rabbitCards.length; i++) {
+            rabbitCardCount++;
+        }
+        //Write DataBase into array & set rabbitCardCount **COMPLETE**
     }
 
     public boolean isEmployeeFull() {
@@ -64,6 +55,7 @@ public class test {
             }
         }
         return true;
+        //Check Array that full **COMPLETE**
     }
 
     public boolean isRabbitCardFull() {
@@ -73,6 +65,49 @@ public class test {
             }
         }
         return true;
+        //Check Array that full **COMPLETE**
+    }
+
+    public void addEmployee(String id, String pass, Person p1) throws IOException, ClassNotFoundException {
+        if (this.isEmployeeFull() == true) {
+            Employee temp[] = employees;
+            this.employees = new Employee[employeeCount + 10];
+            for (int i = 0; i < temp.length; i++) {
+                employees[i] = temp[i];
+            }
+            //Check Array that full ,If full then increase size **COMPLETE**
+        }
+        employees[employeeCount++] = new Employee(id, pass, p1);
+        InputOutputEmployee e1 = new InputOutputEmployee();
+        e1.EmployeeWriter(employees);
+        //Add new employee into array and IO **COMPLETE**
+
+    }
+
+    public void addRabbitCard(String id, String pass, RabbitCard r1) {
+        if (this.isRabbitCardFull() == true) {
+            RabbitCard temp[] = rabbitCards;
+            this.rabbitCards = new RabbitCard[rabbitCardCount + 10];
+            for (int i = 0; i < temp.length; i++) {
+                rabbitCards[i] = temp[i];
+            }
+            //Check Array that full ,If full then increase size **COMPLETE**
+        }
+        for (int i = 0; i < employees.length; i++) {
+            if (id.equals(employees[i].getEmployee_id()) && pass.equals(employees[i].getPassword())) {
+                this.rabbitCards[rabbitCardCount++] = r1;
+                RabbitcardDatabase b1 = new RabbitcardDatabase();
+                b1.insertDBPerson(r1.getFirstname(), r1.getLastName(), r1.getC_id(), r1.getPhone());
+                b1.insertDBRabbitcard(r1.getRbc_idCard(), r1.getRbc_money(), r1.getRbc_point(),
+                        r1.getRbc_cardStatus() == CardStatus.ACTIVE ? "ACTIVE" : "EXPIRED",
+                        r1.getRbc_cardType() == CardType.STUDENT ? "STUDENT" : "ADULT");
+                System.out.println("RabbitCard " + r1.getRbc_idCard() + " has been added sucessful.");
+                return;
+                //Add new rabbitcard into array and IO **COMPLETE**
+                //Only Employee can use this method using id & password
+            }
+        }
+        System.out.println("Incorrect ID or Password.");
     }
 
     public void RedeemPoint(String id, String pass, int id_card, int money) {
@@ -82,7 +117,9 @@ public class test {
                     if (rabbitCards[i].getRbc_idCard() == id_card) {
                         rabbitCards[i].setRbc_money(rabbitCards[i].getRbc_money() + money);
                         System.out.println("RabbitCard ID " + rabbitCards[i].getRbc_idCard() + " has redeem sucessful.");
-                        //and Update money in DB
+                        //Decrease money in rabbitcard **COMPLETE**
+                        //Only Employee can use this method using id & password
+                        //and Update money in DB **INPROCESS**
                     }
                 }
                 System.out.println("RabbitCard ID is Undefined");
@@ -95,6 +132,7 @@ public class test {
     }
 
     public String listAllRabbitCard() {
+        //**INPROCESS**
         return null;
     }
 
@@ -120,6 +158,7 @@ public class test {
                     rabbitCards[i].setRbc_cardStatus(CardStatus.EXPIRED);
                     System.out.println("RabbitCard ID " + rabbitCards[i].getRbc_idCard() + " : Now your card are expired."
                             + "Please redeem your rabbitcard !");
+                //Caculate station & payment **COMPLETE**
                 }
                 return;
             }
@@ -128,23 +167,22 @@ public class test {
     }
 
     private void writeRabbitCardLog(RabbitCard r1, String atIn, String atOut) throws IOException {
-        /////// catch for FileNotFound and creat new txt file ///////
         try {
             FileInputStream fis = new FileInputStream("tmp/" + r1.getRbc_idCard() + "_Station_Log.txt");
         } catch (FileNotFoundException ex) {
             FileWriter S1 = new FileWriter("tmp/" + r1.getRbc_idCard() + "_Station_Log.txt");
         }
-
+        //catch for FileNotFound and creat new txt file **COMPLETE**
         Path file = Paths.get("tmp/" + r1.getRbc_idCard() + "_Station_Log.txt");
-        /////// backup file to temp ///////
+        
         BufferedReader reader = Files.newBufferedReader(file, StandardCharsets.UTF_8);
         String line = null;
         StringBuilder temp = new StringBuilder();
         while ((line = reader.readLine()) != null) {
             temp.append(line + "\n");
         }
+        // backup file to temp **COMPLETE**
 
-        /////// Write Temp & result in file ///////
         BufferedWriter writer = Files.newBufferedWriter(file, StandardCharsets.UTF_8);
         StringBuilder result = new StringBuilder();
         LocalDateTime logTime = LocalDateTime.now();
@@ -154,24 +192,8 @@ public class test {
         writer.write(temp.toString());
         writer.write(result.toString());
         writer.close();
+        // Write Temp & result in file **COMPLETE**
 
-    }
-
-    public static void createCustomerTable() {
-
-        try ( Connection conn = DriverManager.getConnection("jdbc:mysql://103.86.49.133:3306/RabbitCard", "KodlnwSoftwarehouse", "Kodlnw1234");  Statement stm = conn.createStatement()) {
-            try {
-                stm.executeUpdate("DROP TABLE rabbitcard");
-            } catch (SQLException ex) {
-            }
-            try {
-                stm.executeUpdate("CREATE TABLE rabbitcard (rbc_idCard INT NOT NULL,rbc_person VARCHAR(100),rbc_money INT,rbc_point INT,rbc_cardStatus VARCHAR(8),rbc_cardType VARCHAR(8)PRIMARY KEY(rbc_idCard))");
-            } catch (SQLException ex) {
-            }
-
-        } catch (SQLException ex) {
-
-        }
     }
 
     @Override
@@ -193,26 +215,5 @@ public class test {
             r1.append(rabbitCards[i] + "\n");
         }
         return r1.toString();
-    }
-
-//    public static void main(String[] args) throws IOException {
-//        createCustomerTable();
-//        RabbitCard r1 = new RabbitCard(1001, new Person("Somchai", "Somtam", "1102170018970", "0806849641"),100, 100, CardStatus.ACTIVE, CardType.ADULT);
-//        RabbitcardDatabase DBR1 = new RabbitcardDatabase();
-//        DBR1.insertDB(0, new Person("Somchai", "Somtam", "1102170018970", "0806849641"), 0, 0, CardStatus.ACTIVE, CardType.ADULT);
-//        test mac1 = new test();
-//        mac1.writeRabbitCardLog(r1, "Siam", "leng house");
-//        
-//
-//         }
-    public static void main(String[] args) throws IOException {
-        test v1 = new test();
-        v1.addRabbitCard();
-//        v1.Travel(1001, "Siam", "Nana");
-//        v1.Travel(1001, "Siam", "Chit lom");
-//        v1.Travel(1001, "Siam","Phra Khanong");
-//        v1.Travel(1001, "Nana", "Siam");
-        v1.Travel(1001, "Siam", "Nana");
-        System.out.println(v1);
     }
 }
