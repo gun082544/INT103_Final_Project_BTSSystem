@@ -34,7 +34,15 @@ public class test {
     }
     
     public void addEmployee(String id,String pass,Person p1){
+        if(this.isEmployeeFull() == true){
+           Employee temp[] = employees;
+           this.employees = new Employee[employeeCount+10];
+            for (int i = 0; i < temp.length; i++) {
+                employees[i] = temp[i];
+            }
+        }else
         employees[employeeCount++] = new Employee(id,pass,p1);
+        //and write new Employee into IO Stream files
     }
     
     public void addRabbitCard(){
@@ -43,18 +51,18 @@ public class test {
     public boolean isEmployeeFull(){
         for (int i = 0; i < employees.length; i++) {
             if(employees[i] == null){
-                return true;
+                return false;
             }
         }
-        return false;
+        return true;
     }
       public boolean isRabbitCardFull(){
         for (int i = 0; i < rabbitCards.length; i++) {
             if(rabbitCards[i] == null){
-                return true;
+                return false;
             }
         }
-        return false;
+        return true;
     }
     public void RedeemPoint(){ 
       }
