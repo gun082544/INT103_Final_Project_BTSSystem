@@ -7,8 +7,8 @@ public class Person implements Serializable {
 
     private String firstname;
     private String lastname;
-    private String c_id;
-    private String phone;
+    private long c_id;
+    private long phone;
 
     public Person(String firstname, String lastname, String c_id, String phone) {
         this.firstname = firstname;
