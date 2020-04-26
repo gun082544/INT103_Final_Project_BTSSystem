@@ -6,6 +6,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -15,20 +16,34 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 public class InputOutputEmployee {
 
-    static File file = new File("C:\\Users\\Gigabyte\\Documents\\GitHub\\INT103_Final_Project_BTSSystem\\tmp\\Employee.emp");
-
-    public static void EmployeeWriter(ArrayList<Employee> e) throws IOException, ClassNotFoundException {
-
+    public static void EmployeeWriter(Employee[] e) throws IOException {
         try {
-            FileOutputStream f = new FileOutputStream(file.getAbsoluteFile());
-            ObjectOutputStream o = new ObjectOutputStream(f);
-            o.writeObject(e);
-            o.close();
-            f.close();
+            FileWriter fw = new FileWriter("tmp\\Employee.txt");
+            BufferedWriter bf = new BufferedWriter(fw);
+
+            FileReader fr = new FileReader("tmp\\Employee.txt");
+            BufferedReader br = new BufferedReader(fr);
+
+            String s = null;
+            StringBuilder temp = new StringBuilder();
+            while ((s = br.readLine()) != null) {
+                temp.append(s + "\n");
+            }
+
+            StringBuilder data = new StringBuilder();
+            LocalDateTime logTime = LocalDateTime.now();
+            data.append(logTime.toLocalTime());
+            data.append(e);
+            bf.write(temp.toString());
+            bf.write(data.toString());
+            bf.close();
+            fw.close();
+
         } catch (FileNotFoundException ex) {
             System.out.println("File not found");
         } catch (IOException e2) {
@@ -37,29 +52,46 @@ public class InputOutputEmployee {
     }
 
     public static void ReadEmployeeData() throws IOException {
-        ArrayList<Employee> eo = null;
-        try {
-            FileInputStream fi = new FileInputStream(file.getAbsoluteFile());
-            ObjectInputStream oi = new ObjectInputStream(fi);
-            while (fi.available() != 0) {
-                eo = (ArrayList<Employee>) oi.readObject();
+        try {  
+                FileReader fr = new FileReader("tmp\\Employee.txt");
+                BufferedReader br = new BufferedReader(fr);
+                String s1 ;
+                String s2 = new String();
+                while ((s1 = br.readLine())!=null) {
+                 s2 += s1 + "\n";
             }
-            for (int i = 0; i < eo.size(); i++) {
-                System.out.println(eo.get(i));
-            }
-            oi.close();
-            fi.close();
+                System.out.println(s2);
+                
         } catch (FileNotFoundException ex) {
             System.out.println("File not found");
         } catch (IOException e2) {
             System.out.println("Error initializing stream");
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
         }
     }
 
+//    public static void ReadEmployeeData() throws IOException {
+//        Employee[] eo = null;
+//        try {
+//            FileInputStream fi = new FileInputStream("tmp\\Employee.emp");
+//            ObjectInputStream oi = new ObjectInputStream(fi);
+//            while (fi.available() != 0) {
+//                eo = (Employee[]) oi.readObject();
+//            }
+//            for (int i = 0; i < eo.length; i++) {
+//                System.out.println(eo[i]);
+//            }
+//            oi.close();
+//            fi.close();
+//        } catch (FileNotFoundException ex) {
+//            System.out.println("File not found");
+//        } catch (IOException e2) {
+//            System.out.println("Error initializing stream");
+//        } catch (ClassNotFoundException e) {
+//            e.printStackTrace();
+//        }
+//    }
     public static void main(String[] args) throws IOException, ClassNotFoundException {
-<<<<<<< HEAD
+
         Person p1 = new Person("JJ", "Montika", 1, 2);
         Person p2 = new Person("Leng", "Loha", 1, 3);
         Person p3 = new Person("Gun", "Chalor", 4, 5);
@@ -68,24 +100,11 @@ public class InputOutputEmployee {
         Employee e2 = new Employee("A02", "btsemp", p2);
         Employee e3 = new Employee("A03", "btsemp", p3);
 
-        ArrayList<Employee> em = new ArrayList<Employee>();
-        em.add(e1);
-        em.add(e2);
-        em.add(e3);
-
-        EmployeeWriter(em);
-        ReadEmployeeData();
-=======
-//        Person p1 = new Person("JJ", "Montika", 62130500024, 086849641);
-//        Person p2 = new Person("Leng", "Loha", 62130500056, 086148152);
-//        Person p3 = new Person("Gun", "Chalor", 62130500072, 092151852);
-//
-//        Employee e1 = new Employee("A01", "btsemp", p1);
-//        Employee e2 = new Employee("A02", "btsemp", p2);
-//        Employee e3 = new Employee("A03", "btsemp", p3);
-//
-//           EmployeeWriter(e1);
-//          ReadEmployeeData();
->>>>>>> 73c8418858a59001fef4bcd614f54a40743cb5b7
+//        Employee[] em = new Employee[3];
+//        em[0] = e1;
+//        em[1] = e2;
+//        em[2] = e3;
+//        EmployeeWriter(em);
+           ReadEmployeeData();
     }
 }
