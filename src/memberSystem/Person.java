@@ -7,10 +7,10 @@ public class Person implements Serializable {
 
     private String firstname;
     private String lastname;
-    private String c_id;
-    private String phone;
+    private long c_id;
+    private long phone;
 
-    public Person(String firstname, String lastname, String c_id, String phone) {
+    public Person(String firstname, String lastname, long c_id, long phone) {
         this.firstname = firstname;
         this.lastname = lastname;
         this.c_id = c_id;
@@ -25,11 +25,11 @@ public class Person implements Serializable {
         return lastname;
     }
 
-    public String getC_id() {
+    public long getC_id() {
         return c_id;
     }
 
-    public String getPhone() {
+    public long getPhone() {
         return phone;
     }
 
@@ -41,11 +41,11 @@ public class Person implements Serializable {
         this.lastname = lastname;
     }
 
-    public void setC_id(String c_id) {
+    public void setC_id(long c_id) {
         this.c_id = c_id;
     }
 
-    public void setPhone(String phone) {
+    public void setPhone(long phone) {
         this.phone = phone;
     }
 

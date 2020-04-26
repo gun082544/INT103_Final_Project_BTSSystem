@@ -1,6 +1,6 @@
 package paymentSystem;
-import dataBase.StationDataBase;
-public abstract class StationCalculateSystem extends StationDataBase{
+import dataBase.StationDatabase;
+public abstract class StationCalculateSystem extends StationDatabase{
     public String nameStation[];
     public int distance[];
     public StationCalculateSystem(){
