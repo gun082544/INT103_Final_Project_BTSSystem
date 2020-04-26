@@ -47,7 +47,7 @@ public class test {
     }
     
     public void addRabbitCard(){
-        rabbitCards[0] = new RabbitCard(1001, new Person("Somchai", "Somtam",1102003160,894908646),100, 100, CardStatus.ACTIVE, CardType.ADULT);
+        rabbitCards[0] = new RabbitCard(1001, new Person("Somchai", "Somtam",1102003160431L,894908646L),100, 100, CardStatus.ACTIVE, CardType.ADULT);
     }
     public boolean isEmployeeFull(){
         for (int i = 0; i < employees.length; i++) {
@@ -161,6 +161,24 @@ public class test {
 
         }
     }
+
+    @Override
+    public String toString() {
+       StringBuilder r1 = new StringBuilder();
+       r1.append("BTS Machine System :\n");
+       r1.append("Employee list :\n");
+        for (int i = 0; i < employees.length; i++) {
+            if(employees[i]==null){continue;}
+            r1.append(employees[i]+"\n");
+        }
+       r1.append("RabbitCard List :\n");
+        for (int i = 0; i < rabbitCards.length; i++) {
+            if(rabbitCards[i]==null)continue;
+            r1.append(rabbitCards[i]+"\n");
+        }
+        return r1.toString();
+    }
+        
 //    public static void main(String[] args) throws IOException {
 //        createCustomerTable();
 //        RabbitCard r1 = new RabbitCard(1001, new Person("Somchai", "Somtam", "1102170018970", "0806849641"),100, 100, CardStatus.ACTIVE, CardType.ADULT);
@@ -175,11 +193,12 @@ public class test {
     public static void main(String[] args) throws IOException {
         test v1 = new test();
         v1.addRabbitCard();
+//        v1.Travel(1001, "Siam", "Nana");
+//        v1.Travel(1001, "Siam", "Chit lom");
+//        v1.Travel(1001, "Siam","Phra Khanong");
+//        v1.Travel(1001, "Nana", "Siam");
         v1.Travel(1001, "Siam", "Nana");
-        v1.Travel(1001, "Siam", "Chit lom");
-        v1.Travel(1001, "Siam","Phra Khanong");
-        v1.Travel(1001, "Nana", "Siam");
-        v1.Travel(1001, "Siam", "Nana");
+        System.out.println(v1);
         
         
     }
