@@ -59,6 +59,7 @@ public class InputOutputEmployee {
     }
 
     public static void main(String[] args) throws IOException, ClassNotFoundException {
+<<<<<<< HEAD
         Person p1 = new Person("JJ", "Montika", 1, 2);
         Person p2 = new Person("Leng", "Loha", 1, 3);
         Person p3 = new Person("Gun", "Chalor", 4, 5);
@@ -74,5 +75,17 @@ public class InputOutputEmployee {
 
         EmployeeWriter(em);
         ReadEmployeeData();
+=======
+//        Person p1 = new Person("JJ", "Montika", 62130500024, 086849641);
+//        Person p2 = new Person("Leng", "Loha", 62130500056, 086148152);
+//        Person p3 = new Person("Gun", "Chalor", 62130500072, 092151852);
+//
+//        Employee e1 = new Employee("A01", "btsemp", p1);
+//        Employee e2 = new Employee("A02", "btsemp", p2);
+//        Employee e3 = new Employee("A03", "btsemp", p3);
+//
+//           EmployeeWriter(e1);
+//          ReadEmployeeData();
+>>>>>>> 73c8418858a59001fef4bcd614f54a40743cb5b7
     }
 }
