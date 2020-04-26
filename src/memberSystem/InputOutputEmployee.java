@@ -44,13 +44,14 @@ public class InputOutputEmployee {
             bf.close();
             fw.close();
 
+
         } catch (FileNotFoundException ex) {
             System.out.println("File not found");
         } catch (IOException e2) {
             System.out.println("Error initializing stream");
         }
     }
-
+  
     public static void ReadEmployeeData() throws IOException {
         try {  
                 FileReader fr = new FileReader("tmp\\Employee.txt");
@@ -106,5 +107,6 @@ public class InputOutputEmployee {
 //        em[2] = e3;
 //        EmployeeWriter(em);
            ReadEmployeeData();
+
     }
 }
