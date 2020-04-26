@@ -13,7 +13,7 @@ public class PersonDatabase {
         try (Connection conn = DriverManager.getConnection("jdbc:mysql://103.86.49.133:3306/Person", "KodlnwSoftwarehouse", "Kodlnw1234");
                 Statement stm = conn.createStatement();) {
 
-           int row = stm.executeUpdate("INSERT INTO STATION VALUES(" +firstname + ","+  lastname + ","+c_id+","+phone+")");
+           int row = stm.executeUpdate("INSERT INTO PERSON VALUES(" +firstname + ","+  lastname + ","+c_id+","+phone+")");
             System.out.println(row);
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
