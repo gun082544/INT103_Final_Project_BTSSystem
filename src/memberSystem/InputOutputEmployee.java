@@ -21,20 +21,7 @@ public class InputOutputEmployee {
     static File file = new File("C:\\Users\\Gigabyte\\Documents\\GitHub\\INT103_Final_Project_BTSSystem\\tmp\\Employee.emp");
 
     public static void EmployeeWriter(Employee e) throws IOException, ClassNotFoundException {
-       //Employee eo = null;
         try {
-
-//            FileInputStream fi = new FileInputStream(file.getAbsoluteFile());
-//            ObjectInputStream oi = new ObjectInputStream(fi);
-//            
-//           while(fi.available()!=0){
-//               eo = (Employee) oi.readObject();
-//            }
-//          // Employee ep = null;
-//            while(eo.toString()!=0){
-//                //o.writeObject(ep);
-//                o.write('\n');
-//            }
             FileOutputStream f = new FileOutputStream(file.getAbsoluteFile());
             ObjectOutputStream o = new ObjectOutputStream(f);
             o.writeObject(e);
@@ -46,6 +33,7 @@ public class InputOutputEmployee {
             System.out.println("Error initializing stream");
         }
     }
+  
     public static void ReadEmployeeData() throws IOException {
         Employee eo = null;
         try {
@@ -74,7 +62,8 @@ public class InputOutputEmployee {
         Employee e1 = new Employee("A01", "btsemp", p1);
         Employee e2 = new Employee("A02", "btsemp", p2);
         Employee e3 = new Employee("A03", "btsemp", p3);
-         EmployeeWriter(e1);
-        ReadEmployeeData();
+
+           EmployeeWriter(e1);
+          ReadEmployeeData();
     }
 }
