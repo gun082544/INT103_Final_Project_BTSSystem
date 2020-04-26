@@ -110,7 +110,13 @@ public class RabbitCard implements Comparator <Person> {
 
     @Override
     public String toString() {
-        return "RabbitCard{" + "rbc_idCard=" + rbc_idCard + ", rbc_person=" + rbc_person + ", rbc_money=" + rbc_money + ", rbc_point=" + rbc_point + ", rbc_cardStatus=" + rbc_cardStatus + ", rbc_cardType=" + rbc_cardType + '}';
+        StringBuilder r1 = new StringBuilder();
+        r1.append("RabbitCard ID " + rbc_idCard+"\n");
+        r1.append("Owner [ "+rbc_person+"]\n");
+        r1.append("Money : "+rbc_money+", RabbitPoint : "+rbc_point+"\n");
+        r1.append("Status : "+rbc_cardStatus+", TypeCard : "+rbc_cardType+"\n");
+        r1.append("----------------------------------------------------");
+        return r1.toString();
     }
 
     @Override
