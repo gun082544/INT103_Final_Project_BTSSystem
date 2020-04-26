@@ -22,6 +22,7 @@ import java.sql.Statement;
 import java.util.Collection;
 import java.util.Collections;
 import memberSystem.Employee;
+import memberSystem.InputOutputEmployee;
 import paymentSystem.PaymentSystem;
 
 public class test {
@@ -29,12 +30,13 @@ public class test {
     private RabbitCard rabbitCards[];
     private int employeeCount;
     private int rabbitCardCount;
-    public test() {
-        employees = new Employee[10]; //Change to IO Later & set employeeCount
+    public test() throws IOException {
+        InputOutputEmployee e1 = new InputOutputEmployee();
+        employees = e1.ReadEmployeeData();
         rabbitCards = new RabbitCard[10]; //Change to BD Later & set rabbitCardCount
     }
     
-    public void addEmployee(String id,String pass,Person p1){
+    public void addEmployee(String id,String pass,Person p1) throws IOException, ClassNotFoundException{
         if(this.isEmployeeFull() == true){
            Employee temp[] = employees;
            this.employees = new Employee[employeeCount+10];
@@ -43,7 +45,9 @@ public class test {
             }
         }
         employees[employeeCount++] = new Employee(id,pass,p1);
-        //and write new Employee into IO Stream files
+        InputOutputEmployee e1 = new InputOutputEmployee();
+        e1.EmployeeWriter(employees); 
+        
     }
     
     public void addRabbitCard(){
