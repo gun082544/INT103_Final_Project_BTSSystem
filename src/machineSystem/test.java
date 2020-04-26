@@ -22,6 +22,7 @@ import java.sql.Statement;
 import java.util.Collection;
 import java.util.Collections;
 import memberSystem.Employee;
+import paymentSystem.PaymentSystem;
 
 public class test {
     private Employee employees[];
@@ -40,13 +41,13 @@ public class test {
             for (int i = 0; i < temp.length; i++) {
                 employees[i] = temp[i];
             }
-        }else
+        }
         employees[employeeCount++] = new Employee(id,pass,p1);
         //and write new Employee into IO Stream files
     }
     
     public void addRabbitCard(){
-        
+        rabbitCards[0] = new RabbitCard(1001, new Person("Somchai", "Somtam",1102003160,894908646),100, 100, CardStatus.ACTIVE, CardType.ADULT);
     }
     public boolean isEmployeeFull(){
         for (int i = 0; i < employees.length; i++) {
@@ -64,15 +65,53 @@ public class test {
         }
         return true;
     }
-    public void RedeemPoint(){ 
+    public void RedeemPoint(String id,String pass,int id_card,int money){ 
+        for (int i = 0; i < employees.length; i++) {
+            if(id.equals(employees[i].getEmployee_id())&& pass.equals(employees[i].getPassword())){
+                for (int j = 0; j < rabbitCards.length; j++) {
+                    if(rabbitCards[i].getRbc_idCard() == id_card){
+                        rabbitCards[i].setRbc_money(rabbitCards[i].getRbc_money()+money);
+                        System.out.println("RabbitCard ID "+rabbitCards[i].getRbc_idCard()+" has redeem sucessful.");
+                        //and Update money in DB
+                    }
+                }
+                System.out.println("RabbitCard ID is Undefined");
+                return;
+            }
+            else System.out.println("Incorrect ID or Password.");
+            return;
+        }
       }
       
      public String listAllRabbitCard(){
          return null;
      }
      
-     public void Travel(){
-         
+     public void Travel(int id_card,String atIn,String atOut) throws IOException{
+         for (int i = 0; i < rabbitCards.length; i++) {
+             if(rabbitCards[i] == null) return;
+             if(rabbitCards[i].getRbc_idCard()==id_card){
+                 if(rabbitCards[i].getRbc_cardStatus()== CardStatus.EXPIRED){
+                     System.out.println("RabbitCard ID "+rabbitCards[i].getRbc_idCard()+" : Out of money");
+                     return;
+                 }
+                 PaymentSystem payment = new PaymentSystem();
+                 int totalPoint = rabbitCards[i].getRbc_money() - payment.getTotalPay(atIn, atOut);
+                 rabbitCards[i].setRbc_money(totalPoint);
+                 System.out.println("RabbitCard ID "+rabbitCards[i].getRbc_idCard()+" : Station "+atIn
+                                    +" to Station "+atOut+" has successful");
+                 System.out.println("Your current money : "+rabbitCards[i].getRbc_money());
+                 //and Update money in DB
+                 this.writeRabbitCardLog(rabbitCards[i], atIn, atOut);
+                 if(rabbitCards[i].getRbc_money()<1){
+                     rabbitCards[i].setRbc_cardStatus(CardStatus.EXPIRED);
+                     System.out.println("RabbitCard ID "+rabbitCards[i].getRbc_idCard()+" : Now your card are expired."
+                             + "Please redeem your rabbitcard !");
+                 }
+                 return;
+             }
+             System.out.println("RabbitCard ID is Undefined");
+         }
      }
       
     
@@ -133,5 +172,15 @@ public class test {
 //
 //         }
     
-   
+    public static void main(String[] args) throws IOException {
+        test v1 = new test();
+        v1.addRabbitCard();
+        v1.Travel(1001, "Siam", "Nana");
+        v1.Travel(1001, "Siam", "Chit lom");
+        v1.Travel(1001, "Siam","Phra Khanong");
+        v1.Travel(1001, "Nana", "Siam");
+        v1.Travel(1001, "Siam", "Nana");
+        
+        
+    }
 }
