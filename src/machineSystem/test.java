@@ -30,6 +30,7 @@ public class test {
     private int employeeCount;
     private int rabbitCardCount;
     public test() {
+        RabbitcardDatabase b1 = new RabbitcardDatabase();
         employees = new Employee[10]; //Change to IO Later & set employeeCount
         rabbitCards = new RabbitCard[10]; //Change to BD Later & set rabbitCardCount
     }
@@ -199,7 +200,5 @@ public class test {
 //        v1.Travel(1001, "Nana", "Siam");
         v1.Travel(1001, "Siam", "Nana");
         System.out.println(v1);
-        
-        
     }
 }
