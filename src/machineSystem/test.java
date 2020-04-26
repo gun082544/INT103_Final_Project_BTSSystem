@@ -21,9 +21,54 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Collection;
 import java.util.Collections;
+import memberSystem.Employee;
 
 public class test {
-    public void writeRabbitCardLog(RabbitCard r1, String atIn, String atOut) throws IOException {
+    private Employee employees[];
+    private RabbitCard rabbitCards[];
+    private int employeeCount;
+    private int rabbitCardCount;
+    public test() {
+        employees = new Employee[10]; //Change to IO Later & set employeeCount
+        rabbitCards = new RabbitCard[10]; //Change to BD Later & set rabbitCardCount
+    }
+    
+    public void addEmployee(String id,String pass,Person p1){
+        employees[employeeCount++] = new Employee(id,pass,p1);
+    }
+    
+    public void addRabbitCard(){
+        
+    }
+    public boolean isEmployeeFull(){
+        for (int i = 0; i < employees.length; i++) {
+            if(employees[i] == null){
+                return true;
+            }
+        }
+        return false;
+    }
+      public boolean isRabbitCardFull(){
+        for (int i = 0; i < rabbitCards.length; i++) {
+            if(rabbitCards[i] == null){
+                return true;
+            }
+        }
+        return false;
+    }
+    public void RedeemPoint(){ 
+      }
+      
+     public String listAllRabbitCard(){
+         return null;
+     }
+     
+     public void Travel(){
+         
+     }
+      
+    
+    private void writeRabbitCardLog(RabbitCard r1, String atIn, String atOut) throws IOException {
         /////// catch for FileNotFound and creat new txt file ///////
         try{
             FileInputStream fis = new FileInputStream("tmp/" + r1.getRbc_idCard() + "_Station_Log.txt");
@@ -69,16 +114,16 @@ public class test {
 
         }
     }
-    public static void main(String[] args) throws IOException {
-        createCustomerTable();
-        RabbitCard r1 = new RabbitCard(1001, new Person("Somchai", "Somtam", "1102170018970", "0806849641"),100, 100, CardStatus.ACTIVE, CardType.ADULT);
-        RabbitcardDatabase DBR1 = new RabbitcardDatabase();
-        DBR1.insertDB(0, new Person("Somchai", "Somtam", "1102170018970", "0806849641"), 0, 0, CardStatus.ACTIVE, CardType.ADULT);
-        test mac1 = new test();
-        mac1.writeRabbitCardLog(r1, "Siam", "leng house");
-        
-
-         }
+//    public static void main(String[] args) throws IOException {
+//        createCustomerTable();
+//        RabbitCard r1 = new RabbitCard(1001, new Person("Somchai", "Somtam", "1102170018970", "0806849641"),100, 100, CardStatus.ACTIVE, CardType.ADULT);
+//        RabbitcardDatabase DBR1 = new RabbitcardDatabase();
+//        DBR1.insertDB(0, new Person("Somchai", "Somtam", "1102170018970", "0806849641"), 0, 0, CardStatus.ACTIVE, CardType.ADULT);
+//        test mac1 = new test();
+//        mac1.writeRabbitCardLog(r1, "Siam", "leng house");
+//        
+//
+//         }
     
    
 }
