@@ -5,12 +5,22 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import memberSystem.CardStatus;
 import memberSystem.CardType;
 import memberSystem.Person;
 import memberSystem.RabbitCard;
 
 public class RabbitcardDatabase {
+    public void updateMoney(int money,long id){
+        try (Connection conn = DriverManager.getConnection("jdbc:mysql://103.86.49.133:3306/RabbitCard", "KodlnwSoftwarehouse", "Kodlnw1234");
+                Statement stm = conn.createStatement();) {
+            stm.executeUpdate("UPDATE RABBITCARD SET rbc_money = "+money+" WHERE rbc_idCard ="+id);
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+    }
 
     public void insertDBRabbitcard(long rbc_idCard, int rbc_money, int rbc_point, String rbc_cardStatus, String rbc_cardType) {
         try (Connection conn = DriverManager.getConnection("jdbc:mysql://103.86.49.133:3306/RabbitCard", "KodlnwSoftwarehouse", "Kodlnw1234");

@@ -14,6 +14,7 @@ public class TestMachineSystem{
 //        v1.addRabbitCard("A03","btsemp", r1);
 //        v1.addRabbitCard("A03","btsemp", r2);
         v1.Travel(1001, "Siam", "Nana");
+//        v1.RedeemPoint("A03","btsemp", 1001, 50);
         System.out.println(v1);
     }
 }
