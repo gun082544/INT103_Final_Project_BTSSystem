@@ -52,7 +52,7 @@ public class RabbitcardDatabase {
         try (Connection conn = DriverManager.getConnection("jdbc:mysql://103.86.49.133:3306/RabbitCard", "KodlnwSoftwarehouse", "Kodlnw1234");
                 Statement stm = conn.createStatement();) {
 
-            stm.executeUpdate("INSERT PERSON VALUES('" + firstname + "','" + lastname + "'," + c_id + "," + phone + ")");
+            stm.executeUpdate("INSERT INTO PERSON VALUES('" + firstname + "','" + lastname + "'," + c_id + "," + phone + ")");
             System.out.println("Insert person has been sucessful.");
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
