@@ -12,11 +12,24 @@ public class StationDataBase {
         try (Connection conn = DriverManager.getConnection("jdbc:mysql://103.86.49.133:3306/BTSMachineSystem", "KodlnwSoftwarehouse", "Kodlnw1234");
                 Statement stm = conn.createStatement();) {
 
-            int row = stm.executeUpdate("INSERT INTO STATION VALUES(" + sta_id + ",'" + Sta_name + "'," + sta_distance + ")");
-            System.out.println(row);
+            stm.executeUpdate("INSERT INTO STATION VALUES(" + sta_id + ",'" + Sta_name + "'," + sta_distance + ")");
+            System.out.println("Insert Station "+Sta_name+" has been sucessful.");
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
         }
+    }
+    public void createTables(){
+        try (Connection conn = DriverManager.getConnection("jdbc:mysql://103.86.49.133:3306/BTSMachineSystem", "KodlnwSoftwarehouse", "Kodlnw1234");
+                Statement stm = conn.createStatement();) {
+            try {stm.executeUpdate("DROP TABLE STATION");} catch (SQLException ex) {}
+ 
+            try {stm.executeUpdate("CREATE TABLE STATION (sta_id INT NOT NULL,sta_name VARCHAR(200),sta_distance INT,PRIMARY KEY (sta_id))");} catch (SQLException ex) {}
+            System.out.println("Create table has sucessful.");
+            System.out.println("---------------------------------------------------------------------------");
+    }   catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+        
     }
 
     public String[] SelectNameFromSTATION() {

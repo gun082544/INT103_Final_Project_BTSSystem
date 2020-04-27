@@ -102,6 +102,7 @@ public class MachineSystem {
                         r1.getRbc_cardStatus() == CardStatus.ACTIVE ? "ACTIVE" : "EXPIRED",
                         r1.getRbc_cardType() == CardType.STUDENT ? "STUDENT" : "ADULT");
                 System.out.println("RabbitCard " + r1.getRbc_idCard() + " has been added sucessful.");
+                System.out.println("----------------------------------------------------");
                 return;
                 //Add new rabbitcard into array and IO **COMPLETE**
                 //Only Employee can use this method using id & password
@@ -114,9 +115,11 @@ public class MachineSystem {
         for (int i = 0; i < employees.length; i++) {
             if (id.equals(employees[i].getEmployee_id()) && pass.equals(employees[i].getPassword())) {
                 for (int j = 0; j < rabbitCards.length; j++) {
-                    if (rabbitCards[j].getRbc_idCard() == id_card) {
+                    if (rabbitCards[j] != null && rabbitCards[j].getRbc_idCard() == id_card) {
                         rabbitCards[j].setRbc_money(rabbitCards[j].getRbc_money() + money);
                         System.out.println("RabbitCard ID " + rabbitCards[j].getRbc_idCard() + " has redeem "+money+" bath sucessful.");
+                        System.out.println("Your current money : " + rabbitCards[j].getRbc_money());
+                        System.out.println("----------------------------------------------------");
                         //Decrease money in rabbitcard **COMPLETE**
                         //Only Employee can use this method using id & password
                         RabbitcardDatabase b1 = new RabbitcardDatabase();
@@ -149,7 +152,7 @@ public class MachineSystem {
                 System.out.println("RabbitCard ID " + rabbitCards[i].getRbc_idCard() + " : Station " + atIn
                         + " to Station " + atOut + " has successful");
                 System.out.println("Your current money : " + rabbitCards[i].getRbc_money());
-                
+                System.out.println("----------------------------------------------------");
                 RabbitcardDatabase b1 = new RabbitcardDatabase();
                 b1.updateMoney(rabbitCards[i].getRbc_money(), rabbitCards[i].getRbc_idCard());
                 //and Update money in DB **COMPLETE**
@@ -158,11 +161,14 @@ public class MachineSystem {
                     rabbitCards[i].setRbc_cardStatus(CardStatus.EXPIRED);
                     System.out.println("RabbitCard ID " + rabbitCards[i].getRbc_idCard() + " : Now your card are expired."
                             + "Please redeem your rabbitcard !");
+                    System.out.println("Your current money : " + rabbitCards[i].getRbc_money());
+                    System.out.println("----------------------------------------------------");
                 //Caculate station & payment **COMPLETE**
                 }
                 return;
             }
             System.out.println("RabbitCard ID is Undefined");
+            System.out.println("----------------------------------------------------");
         }
     }
 

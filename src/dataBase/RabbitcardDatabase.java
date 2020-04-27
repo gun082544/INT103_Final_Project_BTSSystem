@@ -13,6 +13,21 @@ import memberSystem.Person;
 import memberSystem.RabbitCard;
 
 public class RabbitcardDatabase {
+    public void createTables(){
+        try (Connection conn = DriverManager.getConnection("jdbc:mysql://103.86.49.133:3306/RabbitCard", "KodlnwSoftwarehouse", "Kodlnw1234");
+                Statement stm = conn.createStatement();) {
+            try {stm.executeUpdate("DROP TABLE PERSON");} catch (SQLException ex) {}
+            try {stm.executeUpdate("DROP TABLE RABBITCARD");} catch (SQLException ex) {}
+            
+            try {stm.executeUpdate("CREATE TABLE RABBITCARD (rbc_idCard BIGINT NOT NULL, rbc_money INT, rbc_point INT,rbc_cardStatus VARCHAR(10),rbc_cardType VARCHAR(10),PRIMARY KEY (rbc_idCard))");} catch (SQLException ex) {} 
+            try {stm.executeUpdate("CREATE TABLE PERSON (firstname VARCHAR(200),lastname VARCHAR(200),c_id BIGINT NOT NULL,phone BIGINT,PRIMARY KEY (c_id))");} catch (SQLException ex) {}
+            System.out.println("Create table has sucessful.");
+            System.out.println("---------------------------------------------------------------------------");
+    }   catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+        
+    }    
     public void updateMoney(int money,long id){
         try (Connection conn = DriverManager.getConnection("jdbc:mysql://103.86.49.133:3306/RabbitCard", "KodlnwSoftwarehouse", "Kodlnw1234");
                 Statement stm = conn.createStatement();) {
@@ -52,7 +67,6 @@ public class RabbitcardDatabase {
             while (rabbitCardCount.next()) {
                 count++;
             }
-            System.out.println(count);
             RabbitCard RabbitCard_temp[] = new RabbitCard[count];
             Person person_temp[] = new Person[count];
             ResultSet person = stm.executeQuery("SELECT * FROM PERSON");
