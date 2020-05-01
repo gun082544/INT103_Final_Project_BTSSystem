@@ -16,12 +16,6 @@ import memberSystem.CardType;
 import memberSystem.Person;
 import memberSystem.RabbitCard;
 import dataBase.RabbitcardDatabase;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.Collection;
-import java.util.Collections;
 import memberSystem.Employee;
 import memberSystem.InputOutputEmployee;
 import paymentSystem.PaymentSystem;
@@ -38,12 +32,16 @@ public class MachineSystem {
         InputOutputEmployee e1 = new InputOutputEmployee();
         employees = e1.ReadEmployeeData();
         for (int i = 0; i < employees.length; i++) {
-            employeeCount++;
+            if(employees[i] != null){
+                employeeCount++;
+            }
         }
         //Write IO into array & set employeeCount  **COMPLETE**
         rabbitCards = b1.selectRabbitCard();
         for (int i = 0; i < rabbitCards.length; i++) {
-            rabbitCardCount++;
+            if(rabbitCards[i] != null){
+                rabbitCardCount++;
+            }
         }
         //Write DataBase into array & set rabbitCardCount **COMPLETE**
     }
@@ -69,9 +67,17 @@ public class MachineSystem {
     }
 
     public void addEmployee(String id, String pass, Person p1) throws IOException, ClassNotFoundException {
+        for (int i = 0; i < employees.length; i++) {
+            if(employees[i]!=null &&employees[i].getEmployee_id().equals(id)){
+                System.out.println("This ID already exists,Please try with another name ID.");
+                System.out.println("----------------------------------------------------");
+                return;
+                //In case check in array,then id has already exists and return **COMPLETE**
+            }
+        }
         if (this.isEmployeeFull() == true) {
             Employee temp[] = employees;
-            this.employees = new Employee[employeeCount + 10];
+            this.employees = new Employee[employeeCount + 1];
             for (int i = 0; i < temp.length; i++) {
                 employees[i] = temp[i];
             }
@@ -80,21 +86,47 @@ public class MachineSystem {
         employees[employeeCount++] = new Employee(id, pass, p1);
         InputOutputEmployee e1 = new InputOutputEmployee();
         e1.EmployeeWriter(employees);
+        System.out.println("Employee Id : "+id+" has been added sucessful.");
+        System.out.println("----------------------------------------------------");
         //Add new employee into array and IO **COMPLETE**
-
     }
-
+    
+    public void deleteEmployee(String id, String pass) throws IOException, ClassNotFoundException{
+        for (int i = 0; i < employees.length; i++) {
+            if(employees[i] != null &&id.equals(employees[i].getEmployee_id())&&pass.equals(employees[i].getPassword())){
+                employees[i] = null;
+                employeeCount--;
+            int k=0;
+            Employee temp[] = new Employee[employees.length-1];
+            for(int j = 0; j < employees.length; j++){
+                if(employees[j]!=null){
+                    temp[k++]=employees[j];
+                }
+            }
+            employees = temp;
+            InputOutputEmployee e1 = new InputOutputEmployee();
+            e1.EmployeeWriter(employees);
+            System.out.println("Delete "+id+" has been sucessful.");
+            System.out.println("----------------------------------------------------");
+            return;
+            }
+        }
+        System.out.println("Delete employee failed, Incorrect ID or Password.");
+        System.out.println("----------------------------------------------------");
+    }
+    
     public void addRabbitCard(String id, String pass, RabbitCard r1) {
         if (this.isRabbitCardFull() == true) {
             RabbitCard temp[] = rabbitCards;
-            this.rabbitCards = new RabbitCard[rabbitCardCount + 10];
+            this.rabbitCards = new RabbitCard[rabbitCardCount + 1];
             for (int i = 0; i < temp.length; i++) {
                 rabbitCards[i] = temp[i];
             }
             //Check Array that full ,If full then increase size **COMPLETE**
         }
         for (int i = 0; i < employees.length; i++) {
-            if (id.equals(employees[i].getEmployee_id()) && pass.equals(employees[i].getPassword())) {
+            //Only Employee can use this method using id & password **COMPLETE**
+            if (employees[i] !=null &&id.equals(employees[i].getEmployee_id()) && pass.equals(employees[i].getPassword())) {
                 this.rabbitCards[rabbitCardCount++] = r1;
                 RabbitcardDatabase b1 = new RabbitcardDatabase();
                 b1.insertDBPerson(r1.getFirstname(), r1.getLastName(), r1.getC_id(), r1.getPhone());
@@ -104,55 +136,62 @@ public class MachineSystem {
                 System.out.println("RabbitCard " + r1.getRbc_idCard() + " has been added sucessful.");
                 System.out.println("----------------------------------------------------");
                 return;
-                //Add new rabbitcard into array and IO **COMPLETE**
-                //Only Employee can use this method using id & password
+                //Add new rabbitcard into array and Database **COMPLETE**
             }
         }
-        System.out.println("Incorrect ID or Password.");
+        System.out.println("Employee incorrect ID or Password.");
+        System.out.println("----------------------------------------------------");
+        //In case not found employee and return **COMPLETE**
     }
 
     public void RedeemPoint(String id, String pass, long id_card, int money) {
         for (int i = 0; i < employees.length; i++) {
-            if (id.equals(employees[i].getEmployee_id()) && pass.equals(employees[i].getPassword())) {
+            if (employees[i] !=null && id.equals(employees[i].getEmployee_id()) && pass.equals(employees[i].getPassword())) {
+                //Only Employee can use this method using id & password **COMPLETE**
                 for (int j = 0; j < rabbitCards.length; j++) {
+                    //Search rabbitcard id in array **COMPLETE**
                     if (rabbitCards[j] != null && rabbitCards[j].getRbc_idCard() == id_card) {
                         rabbitCards[j].setRbc_money(rabbitCards[j].getRbc_money() + money);
                         System.out.println("RabbitCard ID " + rabbitCards[j].getRbc_idCard() + " has redeem "+money+" bath sucessful.");
                         System.out.println("Your current money : " + rabbitCards[j].getRbc_money());
                         System.out.println("----------------------------------------------------");
-                        //Decrease money in rabbitcard **COMPLETE**
-                        //Only Employee can use this method using id & password
+                        //Increase money in rabbitcard **COMPLETE**
                         RabbitcardDatabase b1 = new RabbitcardDatabase();
                         b1.updateMoney(rabbitCards[j].getRbc_money(), rabbitCards[j].getRbc_idCard());
                         //and Update money in DB **COMPLETE**
+                        return;
                     }
                 }
+                System.out.println("RabbitCard ID : "+id_card+" Error Something please contact employee");
+                System.out.println("----------------------------------------------------");
+                return;
+                //In case not found employee and return **COMPLETE**
             }
         }
-    }
-
-    public String listAllRabbitCard() {
-        //**INPROCESS**
-        return null;
+        System.out.println("Employee incorrect ID or Password.");
+        System.out.println("----------------------------------------------------");
+        //In case password or id doesn't match in array **COMPLETE**
     }
 
     public void Travel(int id_card, String atIn, String atOut) throws IOException {
         for (int i = 0; i < rabbitCards.length; i++) {
-            if (rabbitCards[i] == null) {
-                return;
-            }
-            if (rabbitCards[i].getRbc_idCard() == id_card) {
+            if (rabbitCards[i]!= null && rabbitCards[i].getRbc_idCard() == id_card) {
                 if (rabbitCards[i].getRbc_cardStatus() == CardStatus.EXPIRED) {
                     System.out.println("RabbitCard ID " + rabbitCards[i].getRbc_idCard() + " : Out of money");
+                    System.out.println("----------------------------------------------------");
                     return;
                 }
                 PaymentSystem payment = new PaymentSystem();
                 int totalPoint = rabbitCards[i].getRbc_money() - payment.getTotalPay(atIn, atOut);
-                rabbitCards[i].setRbc_money(totalPoint);
                 System.out.println("RabbitCard ID " + rabbitCards[i].getRbc_idCard() + " : Station " + atIn
                         + " to Station " + atOut + " has successful");
+                System.out.println("Your money : "+rabbitCards[i].getRbc_money());
+                System.out.println("price : "+payment.getTotalPay(atIn, atOut));
+                
+                rabbitCards[i].setRbc_money(totalPoint);
                 System.out.println("Your current money : " + rabbitCards[i].getRbc_money());
                 System.out.println("----------------------------------------------------");
+                
                 RabbitcardDatabase b1 = new RabbitcardDatabase();
                 b1.updateMoney(rabbitCards[i].getRbc_money(), rabbitCards[i].getRbc_idCard());
                 //and Update money in DB **COMPLETE**
@@ -164,12 +203,13 @@ public class MachineSystem {
                     System.out.println("Your current money : " + rabbitCards[i].getRbc_money());
                     System.out.println("----------------------------------------------------");
                 //Caculate station & payment **COMPLETE**
+                return;
                 }
                 return;
             }
-            System.out.println("RabbitCard ID is Undefined");
-            System.out.println("----------------------------------------------------");
         }
+        System.out.println("RabbitCard ID : "+id_card+" Error Something please contact employee");
+        System.out.println("----------------------------------------------------");
     }
 
     private void writeRabbitCardLog(RabbitCard r1, String atIn, String atOut) throws IOException {
@@ -205,15 +245,15 @@ public class MachineSystem {
     @Override
     public String toString() {
         StringBuilder r1 = new StringBuilder();
-        r1.append("BTS Machine System :\n");
-        r1.append("Employee list :\n");
+        r1.append("BTS Machine System ||\n");
+        r1.append("Employee list ||\n");
         for (int i = 0; i < employees.length; i++) {
             if (employees[i] == null) {
                 continue;
             }
             r1.append(employees[i] + "\n");
         }
-        r1.append("RabbitCard List :\n");
+        r1.append("RabbitCard List ||\n");
         for (int i = 0; i < rabbitCards.length; i++) {
             if (rabbitCards[i] == null) {
                 continue;
