@@ -16,11 +16,13 @@ import memberSystem.CardType;
 import memberSystem.Person;
 import memberSystem.RabbitCard;
 import dataBase.RabbitcardDatabase;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import memberSystem.Employee;
 import memberSystem.InputOutputEmployee;
 import paymentSystem.PaymentSystem;
 
-public class MachineSystem {
+public class MachineSystem implements EmployeeService,RabbitcardService {
 
     private Employee employees[];
     private RabbitCard rabbitCards[];
@@ -115,6 +117,7 @@ public class MachineSystem {
         System.out.println("----------------------------------------------------");
     }
     
+    @Override
     public void addRabbitCard(String id, String pass, RabbitCard r1) {
         if (this.isRabbitCardFull() == true) {
             RabbitCard temp[] = rabbitCards;
@@ -143,7 +146,8 @@ public class MachineSystem {
         System.out.println("----------------------------------------------------");
         //In case not found employee and return **COMPLETE**
     }
-
+    
+    @Override
     public void RedeemPoint(String id, String pass, long id_card, int money) {
         for (int i = 0; i < employees.length; i++) {
             if (employees[i] !=null && id.equals(employees[i].getEmployee_id()) && pass.equals(employees[i].getPassword())) {
@@ -173,7 +177,8 @@ public class MachineSystem {
         //In case password or id doesn't match in array **COMPLETE**
     }
 
-    public void Travel(int id_card, String atIn, String atOut) throws IOException {
+    @Override
+    public void Travel(int id_card, String atIn, String atOut) {
         for (int i = 0; i < rabbitCards.length; i++) {
             if (rabbitCards[i]!= null && rabbitCards[i].getRbc_idCard() == id_card) {
                 if (rabbitCards[i].getRbc_cardStatus() == CardStatus.EXPIRED) {
@@ -194,8 +199,12 @@ public class MachineSystem {
                 
                 RabbitcardDatabase b1 = new RabbitcardDatabase();
                 b1.updateMoney(rabbitCards[i].getRbc_money(), rabbitCards[i].getRbc_idCard());
-                //and Update money in DB **COMPLETE**
-                this.writeRabbitCardLog(rabbitCards[i], atIn, atOut);
+                try {
+                    //and Update money in DB **COMPLETE**
+                    this.writeRabbitCardLog(rabbitCards[i], atIn, atOut);
+                } catch (IOException ex) {
+                    Logger.getLogger(MachineSystem.class.getName()).log(Level.SEVERE, null, ex);
+                }
                 if (rabbitCards[i].getRbc_money() < 1) {
                     rabbitCards[i].setRbc_cardStatus(CardStatus.EXPIRED);
                     System.out.println("RabbitCard ID " + rabbitCards[i].getRbc_idCard() + " : Now your card are expired."

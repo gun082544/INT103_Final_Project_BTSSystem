@@ -53,21 +53,21 @@ public class InputOutputEmployee {
         }
         return eo;
     }
-
-    public static void main(String[] args) throws IOException, ClassNotFoundException {
-        Person p1 = new Person("JJ", "Montika", 1, 2);
-        Person p2 = new Person("Leng", "Loha", 1, 3);
-        Person p3 = new Person("Gun", "Chalor", 4, 5);
-
-        Employee e1 = new Employee("A01", "btsemp", p1);
-        Employee e2 = new Employee("A02", "btsemp", p2);
-        Employee e3 = new Employee("A03", "btsemp", p3);
-        
-//        Employee[] em = new Employee[3];
-//        em[0] = e2;
-//        em[1] = e1;
-//        em[2] = e3;
-//        EmployeeWriter(em);
-        ReadEmployeeData();
-    }
+//Test Read and Write Employee data
+//    public static void main(String[] args) throws IOException, ClassNotFoundException {
+//        Person p1 = new Person("JJ", "Montika", 1, 2);
+//        Person p2 = new Person("Leng", "Loha", 1, 3);
+//        Person p3 = new Person("Gun", "Chalor", 4, 5);
+//
+//        Employee e1 = new Employee("A01", "btsemp", p1);
+//        Employee e2 = new Employee("A02", "btsemp", p2);
+//        Employee e3 = new Employee("A03", "btsemp", p3);
+//        
+////        Employee[] em = new Employee[3];
+////        em[0] = e2;
+////        em[1] = e1;
+////        em[2] = e3;
+////        EmployeeWriter(em);
+//        ReadEmployeeData();
+//    }
 }
