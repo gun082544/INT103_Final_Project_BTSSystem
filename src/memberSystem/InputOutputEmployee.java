@@ -1,21 +1,11 @@
 package memberSystem;
-
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.nio.charset.Charset;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.ArrayList;
+
 
 public class InputOutputEmployee {
 
@@ -27,10 +17,11 @@ public class InputOutputEmployee {
             o.writeObject(e);
             o.close();
             f.close();
+            System.out.println("-----------Writing Data Complete-----------");
         } catch (FileNotFoundException ex) {
-            System.out.println("File not found");
+            System.out.println("-----------File not found-----------");
         } catch (IOException e2) {
-            System.out.println("Error initializing stream");
+            System.out.println(e2.getMessage());
         }
     }
 
@@ -45,29 +36,12 @@ public class InputOutputEmployee {
             oi.close();
             fi.close();
         } catch (FileNotFoundException ex) {
-            System.out.println("File not found");
+            System.out.println("-----------File not found-----------");
         } catch (IOException e2) {
-            System.out.println("Error initializing stream");
+            System.out.println(e2.getMessage());
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
         return eo;
     }
-//Test Read and Write Employee data
-//    public static void main(String[] args) throws IOException, ClassNotFoundException {
-//        Person p1 = new Person("JJ", "Montika", 1, 2);
-//        Person p2 = new Person("Leng", "Loha", 1, 3);
-//        Person p3 = new Person("Gun", "Chalor", 4, 5);
-//
-//        Employee e1 = new Employee("A01", "btsemp", p1);
-//        Employee e2 = new Employee("A02", "btsemp", p2);
-//        Employee e3 = new Employee("A03", "btsemp", p3);
-//        
-////        Employee[] em = new Employee[3];
-////        em[0] = e2;
-////        em[1] = e1;
-////        em[2] = e3;
-////        EmployeeWriter(em);
-//        ReadEmployeeData();
-//    }
 }

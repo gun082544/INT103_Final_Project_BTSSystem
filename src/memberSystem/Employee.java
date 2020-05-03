@@ -21,7 +21,7 @@ public class Employee implements Comparable<Employee>, Serializable {
     public String getEmployee_id() {
         return employee_id;
     }
-    
+
     public void setPassword(String password) {
         this.password = password;
     }
@@ -34,16 +34,21 @@ public class Employee implements Comparable<Employee>, Serializable {
     public Person getPersons() {
         return persons;
     }
-    
+
     @Override
     public String toString() {
-        return "Employee ID : " + employee_id + "  Password : " + password + "\n" + persons + "\n-------------------------------------------------------------------------------------";
+        return "Employee ID : " + employee_id + "  Password : " + password + "\n" + persons 
+        + "\n-------------------------------------------------------------------------------------";
     }
-    
 
     @Override
     public int compareTo(Employee o) {
-        return this.employee_id.compareTo(o.employee_id);
+        if (this.employee_id.compareTo(o.employee_id) == 0) {
+            System.out.println("This is the same Employee");
+            return 0;
+        }
+        System.out.println("This is not the same Employee");
+        return -1;
     }
 
 }
