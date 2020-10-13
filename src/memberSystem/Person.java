@@ -1,5 +1,4 @@
 package memberSystem;
-
 import java.io.Serializable;
 import java.util.Objects;
 
@@ -30,6 +29,11 @@ public class Person implements Serializable {
     }
 
     public long getPhone() {
+    public int getC_id() {
+        return c_id;
+    }
+
+    public int getPhone() {
         return phone;
     }
 
@@ -46,7 +50,18 @@ public class Person implements Serializable {
     }
 
     public void setPhone(long phone) {
+    public void setC_id(int c_id) {
+        this.c_id = c_id;
+    }
+
+    public void setPhone(int phone) {
         this.phone = phone;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 3;
+        return hash;
     }
 
     @Override
@@ -81,4 +96,6 @@ public class Person implements Serializable {
         return "Firstname : " + firstname + "  Lastname : " + lastname + "\nID Card : " + c_id + "\nTel. : " + phone ;
     }
     
+        return "Person{" + "firstname=" + firstname + ", lastname=" + lastname + ", c_id=" + c_id + ", phone=" + phone + '}';
+    }
 }

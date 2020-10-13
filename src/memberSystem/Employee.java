@@ -1,5 +1,4 @@
 package memberSystem;
-
 import java.io.Serializable;
 
 public class Employee implements Comparable<Employee>, Serializable {
@@ -17,7 +16,6 @@ public class Employee implements Comparable<Employee>, Serializable {
     public String getPassword() {
         return password;
     }
-
     public String getEmployee_id() {
         return employee_id;
     }
