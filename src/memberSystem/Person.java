@@ -1,15 +1,15 @@
 package memberSystem;
-
+import java.io.Serializable;
 import java.util.Objects;
 
-public class Person {
+public class Person implements Serializable {
 
     private String firstname;
     private String lastname;
-    private int c_id; //citizen ID
-    private int phone;
+    private long c_id;
+    private long phone;
 
-    public Person(String firstname, String lastname, int c_id, int phone) {
+    public Person(String firstname, String lastname, long c_id, long phone) {
         this.firstname = firstname;
         this.lastname = lastname;
         this.c_id = c_id;
@@ -24,6 +24,11 @@ public class Person {
         return lastname;
     }
 
+    public long getC_id() {
+        return c_id;
+    }
+
+    public long getPhone() {
     public int getC_id() {
         return c_id;
     }
@@ -40,6 +45,11 @@ public class Person {
         this.lastname = lastname;
     }
 
+    public void setC_id(long c_id) {
+        this.c_id = c_id;
+    }
+
+    public void setPhone(long phone) {
     public void setC_id(int c_id) {
         this.c_id = c_id;
     }
@@ -83,7 +93,9 @@ public class Person {
 
     @Override
     public String toString() {
+        return "Firstname : " + firstname + "  Lastname : " + lastname + "\nID Card : " + c_id + "\nTel. : " + phone ;
+    }
+    
         return "Person{" + "firstname=" + firstname + ", lastname=" + lastname + ", c_id=" + c_id + ", phone=" + phone + '}';
     }
-
 }

@@ -1,27 +1,23 @@
 package memberSystem;
+import java.io.Serializable;
 
-public class Employee extends Person {
+public class Employee implements Comparable<Employee>, Serializable {
 
-    private long employee_id;
+    private String employee_id;
     private String password;
-    private Person person;
+    private Person persons;
 
-    public Employee(long employee_id, String password, String firstname, String lastname, int c_id, int phone) {
-        super(firstname, lastname, c_id, phone);
+    public Employee(String employee_id, String password, Person persons) {
         this.employee_id = employee_id;
         this.password = password;
+        this.persons = persons;
     }
 
     public String getPassword() {
         return password;
     }
-
-    public long getEmployee_id() {
+    public String getEmployee_id() {
         return employee_id;
-    }
-
-    public Person getPerson() {
-        return person;
     }
 
     public void setPassword(String password) {
@@ -33,9 +29,24 @@ public class Employee extends Person {
         return true;
     }
 
+    public Person getPersons() {
+        return persons;
+    }
+
     @Override
     public String toString() {
-        return "Employee{" + "employee_id=" + employee_id + ", password=" + password + ", person=" + person + '}';
+        return "Employee ID : " + employee_id + "  Password : " + password + "\n" + persons 
+        + "\n-------------------------------------------------------------------------------------";
+    }
+
+    @Override
+    public int compareTo(Employee o) {
+        if (this.employee_id.compareTo(o.employee_id) == 0) {
+            System.out.println("This is the same Employee");
+            return 0;
+        }
+        System.out.println("This is not the same Employee");
+        return -1;
     }
 
 }
